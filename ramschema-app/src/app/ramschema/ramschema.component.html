@@ -1,0 +1,20 @@
+<h1>Ramschema</h1>
+
+<input type="text" [(ngModel)]="sokfras" (input)="filtreraKurser()" placeholder="Sök...">
+
+<table>
+  <thead>
+    <tr>
+      <th (click)="sorteraKurser('code')">Kurskod</th>
+      <th (click)="sorteraKurser('coursename')">Kursnamn</th>
+      <th (click)="sorteraKurser('progression')">Progression</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let kurs of filtreradeKurser">
+      <td>{{ kurs.code }}</td>
+      <td>{{ kurs.coursename }}</td>
+      <td>{{ kurs.progression }}</td>
+    </tr>
+  </tbody>
+</table>
