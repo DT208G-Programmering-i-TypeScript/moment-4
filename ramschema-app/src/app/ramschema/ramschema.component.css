@@ -1,0 +1,120 @@
+h1 {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    display: block;
+    margin: 0 auto 20px auto;
+    padding: 10px;
+    width: 80%;
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #04AA6D;
+    outline: none;
+}
+
+table {
+    width: 90%;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+thead {
+    background-color: #04AA6D;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+th {
+    padding: 12px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+th:hover {
+    background-color: #037d57;
+    color: #fff;
+}
+
+tbody tr {
+    background-color: #f9f9f9;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f1f1f1;
+}
+
+tbody tr:hover {
+    background-color: #e3fcec;
+    transform: scale(1.02);
+}
+
+td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Row update animation */
+tbody tr.animation {
+    animation: highlightRow 1s ease-in-out;
+}
+
+@keyframes highlightRow {
+    0% {
+        background-color: #ffeb3b;
+    }
+    100% {
+        background-color: inherit;
+    }
+}
+
+/* responsive */
+@media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    tbody tr {
+        margin-bottom: 10px;
+        display: block;
+        padding: 10px;
+        border: 1px solid #ddd;
+    }
+
+    td {
+        display: block;
+        text-align: center;
+        /* padding-left: 50%; */
+        position: relative;
+        white-space: nowrap;
+    }
+
+    td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        padding-left: 15px;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+}

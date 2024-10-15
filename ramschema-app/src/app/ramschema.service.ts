@@ -8,7 +8,7 @@ import { Kurs } from './kurs';
   providedIn: 'root'
 })
 export class RamschemaService {
-  private dataUrl = 'https://webbutveckling.miun.se/files/ramschema_ht23.json'; // Anpassa sökvägen till din JSON-fil
+  private dataUrl = 'https://webbutveckling.miun.se/files/ramschema_ht23.json';
 
   constructor(private http: HttpClient) { }
 
