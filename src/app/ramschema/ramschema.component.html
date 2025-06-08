@@ -1,13 +1,14 @@
-<h1>Ramschema</h1>
+<h1 class="rubrik">Ramschema</h1>
 
-<input type="text" [(ngModel)]="sokfras" (input)="filtreraKurser()" placeholder="Sök...">
+<input type="text" [(ngModel)]="sokfras" (input)="filtreraKurser()" placeholder="Sök efter kurskod eller kursnamn...">
 
 <table>
   <thead>
     <tr>
-      <th (click)="sorteraKurser('code')">Kurskod</th>
-      <th (click)="sorteraKurser('coursename')">Kursnamn</th>
-      <th (click)="sorteraKurser('progression')">Progression</th>
+      <th (click)="sorteraKurser('code')">Kurskod <span *ngIf="sorteringsKolumn === 'code'">{{ stigandeOrdning ? '▲' : '▼' }}</span></th>
+      <th (click)="sorteraKurser('coursename')">Kursnamn <span *ngIf="sorteringsKolumn === 'coursename'">{{ stigandeOrdning ? '▲' : '▼' }}</span></th>
+      <th (click)="sorteraKurser('progression')">Progression <span *ngIf="sorteringsKolumn === 'progression'">{{ stigandeOrdning ? '▲' : '▼' }}</span></th>
+      <th>Kursplan</th>
     </tr>
   </thead>
   <tbody>
@@ -15,6 +16,7 @@
       <td>{{ kurs.code }}</td>
       <td>{{ kurs.coursename }}</td>
       <td>{{ kurs.progression }}</td>
+      <td><a [href]="kurs.syllabus" target="_blank">Länk</a></td>
     </tr>
   </tbody>
 </table>

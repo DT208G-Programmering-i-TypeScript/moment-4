@@ -1,8 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Kurs } from './kurs';
 
+export interface Kurs {
+  code: string;
+  coursename: string;
+  progression: string;
+  syllabus: string;
+  [key: string]: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +16,7 @@ import { Kurs } from './kurs';
 export class RamschemaService {
   private dataUrl = 'https://webbutveckling.miun.se/files/ramschema_ht23.json';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient = inject(HttpClient)) { }
 
   getRamschema(): Observable<Kurs[]> {
     return this.http.get<Kurs[]>(this.dataUrl);

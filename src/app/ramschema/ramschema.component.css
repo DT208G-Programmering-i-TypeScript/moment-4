@@ -1,90 +1,104 @@
-h1 {
-    text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+body {
     font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f9;
     color: #333;
-    margin-bottom: 20px;
+    margin: 0;
+    padding: 20px;
+}
+
+.rubrik {
+    text-align: center;
+    color: #4a4a4a;
+    margin-bottom: 30px;
+    font-weight: 300;
 }
 
 input[type="text"] {
-    display: block;
-    margin: 0 auto 20px auto;
-    padding: 10px;
-    width: 80%;
-    max-width: 400px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    width: 100%;
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    background-color: white;
+    color: #333;
     font-size: 16px;
-    transition: border 0.3s ease;
+    transition: border-color 0.3s ease;
 }
 
 input[type="text"]:focus {
-    border-color: #04AA6D;
+    border-color: #007bff;
     outline: none;
 }
 
 table {
-    width: 90%;
-    max-width: 1000px;
-    margin: 0 auto;
+    width: 100%;
     border-collapse: collapse;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    overflow: hidden;
 }
 
-thead {
-    background-color: #04AA6D;
+th, td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+thead th {
+    background-color: #007bff;
     color: white;
-    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    font-weight: 500;
     text-transform: uppercase;
     font-size: 14px;
 }
 
-th {
-    padding: 12px 15px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-th:hover {
-    background-color: #037d57;
-    color: #fff;
+thead th span {
+    float: right;
+    margin-left: 10px;
 }
 
 tbody tr {
-    background-color: #f9f9f9;
-    font-family: 'Roboto', sans-serif;
-    color: #333;
-    font-size: 16px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    background-color: white;
+    transition: background-color 0.2s ease;
 }
 
-tbody tr:nth-child(even) {
-    background-color: #f1f1f1;
+tbody tr:nth-of-type(even) {
+    background-color: #f9f9f9;
 }
 
 tbody tr:hover {
-    background-color: #e3fcec;
-    transform: scale(1.02);
+    background-color: #f1f1f1;
 }
 
-td {
-    padding: 12px 15px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
+td a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
 }
 
-/* Row update animation */
-tbody tr.animation {
-    animation: highlightRow 1s ease-in-out;
+td a:hover {
+    color: #0056b3;
+    text-decoration: underline;
 }
 
-@keyframes highlightRow {
-    0% {
-        background-color: #ffeb3b;
+.animation {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
     }
-    100% {
-        background-color: inherit;
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
