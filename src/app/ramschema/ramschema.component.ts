@@ -1,6 +1,5 @@
 import { Component, OnInit, inject  } from '@angular/core';
-import { RamschemaService } from '../ramschema.service';
-import { Kurs } from '../kurs';
+import { RamschemaService, Kurs } from '../ramschema.service';
 import { FormsModule } from '@angular/forms'; // Importera FormsModule
 import { CommonModule } from '@angular/common'; // Importera CommonModule
 
