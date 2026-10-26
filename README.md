@@ -1,45 +1,66 @@
-# Moment 4 - Programmering i TypeScript
+# Moment 4 – HTTP-anrop med Angular
 
-Detta är en Angular-applikation som hämtar, visar, sorterar och filtrerar kursdata från ett externt API.
+En Angular-applikation som hämtar ramschemat för Webbutvecklingsprogrammet och visar kurserna i en tabell. Tabellen kan filtreras och sorteras utan att sidan laddas om.
 
-## Applikationens struktur
+## Funktioner
 
-Applikationen är byggd med Angular och är uppdelad i ett antal nyckelkomponenter och tjänster för att hantera visning och manipulation av ett ramschema för kurser.
+- Hämtar kursdata med Angulars HttpClient genom en service.
+- Visar kurskod, kursnamn, progression och en länk till kursplanen.
+- Filtrerar på kurskod och kursnamn direkt när söktexten ändras.
+- Sorterar på kurskod, kursnamn och progression.
+- Växlar mellan stigande och fallande ordning vid upprepade klick på samma kolumnrubrik.
 
--   **`src/`**: Innehåller all källkod för applikationen.
-    -   **`app/`**: Kärnan i Angular-applikationen.
-        -   **`ramschema/`**: Innehåller den primära komponenten för att visa ramschemat.
-            -   `ramschema.component.ts`: Logiken för att hämta, filtrera och sortera kursdata. Den innehåller metoder för att hantera användarinteraktioner som sökning och sortering.
-            -   `ramschema.component.html`: Mallen som definierar strukturen för ramschemat, inklusive sökfält och tabellen där kurserna visas. Använder Angular-direktiv som `*ngFor` för att rendera listan.
-            -   `ramschema.component.css`: Stilmallar specifika för `RamschemaComponent`.
-        -   `app.component.ts`: Applikationens rotkomponent.
-        -   `app.component.html`: Huvudmallen som i huvudsak agerar som en behållare för andra komponenter. I denna applikation renderas `RamschemaComponent` här.
-        -   `app.routes.ts`: Definierar applikationens routing. Den är konfigurerad så att `RamschemaComponent` är standardvyn som visas när applikationen startar.
-        -   `ramschema.service.ts`: En Angular-tjänst som ansvarar för att hämta kursdata. Den använder `HttpClient` för att göra en GET-förfrågan till ett externt JSON-API och returnerar en `Observable` med en array av `Kurs`-objekt.
-        -   `kurs.ts`: En TypeScript-interface som definierar datastrukturen för ett `Kurs`-objekt (code, coursename, progression, syllabus).
-    -   **`assets/`**: Avsedd för statiska tillgångar som bilder och ikoner (används för närvarande inte).
-    -   **`environments/`**: Miljöspecifika konfigurationsfiler (används för närvarande inte).
--   **`angular.json`**: Konfigurationsfil för Angular CLI, som definierar hur applikationen byggs, testas och körs.
--   **`package.json`**: Innehåller projektets metadata och en lista över beroenden (dependencies) som krävs för projektet.
+## Tekniker
 
-## Hur lösningen fungerar
+Projektet använder Angular 17, TypeScript, HTML och CSS. Datahämtningen returnerar en Observable från RxJS. Applikationen använder fristående komponenter och Angulars router.
 
-1.  **Initiering**: När applikationen startas, laddas `AppComponent`.
-2.  **Routing**: Routern, enligt konfigurationen i `app.routes.ts`, ser till att `RamschemaComponent` omedelbart visas.
-3.  **Datahämtning**: I `RamschemaComponent` anropas `RamschemaService` under `ngOnInit`-livscykelhooken. Tjänsten skickar en HTTP GET-förfrågan till `https://webbutveckling.miun.se/files/ramschema_ht23.json`.
-4.  **Datavisning**: När datan tas emot från tjänsten (som en `Observable`), prenumererar komponenten på den och lagrar kurslistan i en lokal variabel. HTML-mallen renderar sedan denna data i en tabell med hjälp av `*ngFor`.
-5.  **Användarinteraktion**:
-    -   **Filtrering**: Användaren kan skriva i ett sökfält. För varje tangenttryckning anropas en funktion som filtrerar kurslistan baserat på om söktermen matchar kurskoden eller kursnamnet. Endast matchande kurser visas i tabellen.
-    -   **Sortering**: Användaren kan klicka på tabellrubrikerna (`Kurskod`, `Kursnamn`, `Progression`). Detta utlöser en sorteringsfunktion som sorterar listan baserat på den valda kolumnen. Ett klick sorterar i stigande ordning, och ett andra klick på samma rubrik sorterar i fallande ordning.
+## Projektstruktur
 
-## Eventuell förbättring
+- `src/app/ramschema.service.ts` innehåller tjänsten för HTTP-anrop och interfacet `Kurs`.
+- `src/app/ramschema/ramschema.component.ts` hanterar kurslistan, sökning och sortering.
+- `src/app/ramschema/ramschema.component.html` innehåller sökfältet och tabellen.
+- `src/app/ramschema/ramschema.component.css` innehåller komponentens stilmall.
+- `src/app/app.routes.ts` kopplar startsidan till ramschemakomponenten.
+- `src/app/app.config.ts` registrerar routern och HttpClient.
+- `src/app/app.config.server.ts` kompletterar konfigurationen för serverrendering.
+- `src/main.ts` startar applikationen med den gemensamma konfigurationen.
+- `angular.json` anger inställningarna för utveckling och produktionsbygge.
+- `netlify.toml` anger byggkommando, publiceringskatalog och omdirigeringar på Netlify.
 
-I filen `app.component.html` inkluderas `<app-ramschema>`-komponenten direkt via sin tagg, samtidigt som `app.routes.ts` konfigurerar `<router-outlet>` att visa samma komponent. Detta leder till att komponenten renderas två gånger på sidan. För att åtgärda detta kan man ta bort `<app-ramschema>` från `app.component.html` och enbart förlita sig på `<router-outlet>`.
+## Så fungerar lösningen
 
-## Hur man kör applikationen
+När ramschemakomponenten startar anropas `getRamschema()` i `RamschemaService`. Tjänsten använder `HttpClient.get<Kurs[]>()` för att hämta JSON från `https://webbutveckling.miun.se/files/ramschema_ht23.json`.
 
-1.  Klona detta repository till din lokala maskin.
-2.  Se till att du har [Node.js](https://nodejs.org/) och [Angular CLI](https://angular.io/cli) installerat.
-3.  Öppna en terminal i projektets rotmapp och kör `npm install` för att installera alla beroenden.
-4.  Kör `ng serve` för att starta utvecklingsservern.
-5.  Öppna din webbläsare och navigera till `http://localhost:4200/`.
+Interfacet `Kurs` beskriver kurskod, kursnamn, progression och kursplan. Samma interface används av tjänsten och komponenten. När svaret kommer sparas kurserna i `kurser` och den synliga listan i `filtreradeKurser`. Tabellen byggs upp med `*ngFor` och Angulars databindning.
+
+Sökfältet är bundet till `sokfras` med `ngModel`. Vid inmatning körs `filtreraKurser()`, som jämför söktexten med både kurskod och kursnamn. Jämförelsen görs med små bokstäver så att sökningen inte skiljer på stora och små bokstäver.
+
+Klick på en kolumnrubrik anropar `sorteraKurser()` med kolumnens fältnamn. Om samma kolumn väljs igen växlas ordningen. Fältvärdena jämförs med `localeCompare()` och den synliga listan uppdateras direkt.
+
+## Installation
+
+Klona repot och gå till projektmappen:
+
+```bash
+git clone https://github.com/DT208G-Programmering-i-TypeScript/moment-4.git
+cd moment-4
+npm ci
+```
+
+Starta utvecklingsservern:
+
+```bash
+npm start
+```
+
+Öppna `http://localhost:4200/` i webbläsaren.
+
+## Bygga och publicera
+
+```bash
+npm run build
+```
+
+De statiska filerna för publicering hamnar i `dist/ramschema-app/browser`. Netlify använder samma byggkommando och katalog enligt `netlify.toml`.
+
+Planerad publiceringsadress: https://mom-4-http-client.netlify.app/
