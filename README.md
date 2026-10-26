@@ -63,4 +63,6 @@ npm run build
 
 De statiska filerna för publicering hamnar i `dist/ramschema-app/browser`. Netlify använder samma byggkommando och katalog enligt `netlify.toml`.
 
-Planerad publiceringsadress: https://mom-4-http-client.netlify.app/
+## Publicerad webbplats
+
+https://mom-4-http-client.netlify.app/
